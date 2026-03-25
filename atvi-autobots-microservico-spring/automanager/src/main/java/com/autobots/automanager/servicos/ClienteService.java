@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.autobots.automanager.entidades.Cliente;
+import com.autobots.automanager.modelo.ClienteAtualizador;
 import com.autobots.automanager.repositorios.ClienteRepositorio;
 
 @Service
@@ -22,13 +23,19 @@ public class ClienteService {
         return clientes;
     }
 
-    public Cliente ListarByID(Cliente Client){
-        Cliente cliente = repositorio.getById(Client.getId());
+    public Cliente ListarByID(Long id){
+        Cliente cliente = repositorio.getById(id);
         return cliente;
     }
 
-    public void deletar (Cliente cliente){
-        Cliente clienteD = repositorio.getById(cliente.getId());
-		repositorio.delete(clienteD);
+    public Cliente atualizar(Long id, Cliente atualizacao){
+        Cliente cliente = repositorio.getById(id);
+        ClienteAtualizador atualizador = new ClienteAtualizador();
+        atualizador.atualizar(cliente, atualizacao);
+        return repositorio.save(cliente);
+    }
+
+    public void deletar (Long id){
+		repositorio.deleteById(id);
     }
 }

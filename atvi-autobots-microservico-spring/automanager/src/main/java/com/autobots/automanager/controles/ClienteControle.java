@@ -15,24 +15,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.autobots.automanager.entidades.Cliente;
-import com.autobots.automanager.modelo.ClienteAtualizador;
-import com.autobots.automanager.modelo.ClienteSelecionador;
 import com.autobots.automanager.servicos.ClienteService;
 
 @RestController
-@RequestMapping("/cliente")
 public class ClienteControle {
 
 	@Autowired
 	private ClienteService servico;
 
-	@Autowired
-	private ClienteSelecionador selecionador;
-
 	@GetMapping("/cliente/{id}")
 	public Cliente obterCliente(@PathVariable long id) {
-		List<Cliente> clientes = servico.listar();
-		return selecionador.selecionar(clientes, id);
+		return servico.ListarByID(id);
 	}
 
 	@GetMapping("/clientes")
@@ -49,15 +42,16 @@ public class ClienteControle {
 	}
 
 	@PutMapping("/atualizar")
-	public void atualizarCliente(@RequestBody Cliente atualizacao) {
-		Cliente cliente = servico.ListarByID(atualizacao);
-		ClienteAtualizador atualizador = new ClienteAtualizador();
-		atualizador.atualizar(cliente, atualizacao);
-		servico.cadastrar(cliente);
+	public ResponseEntity<String> atualizarCliente(@RequestBody Cliente atualizacao) {
+		servico.atualizar(atualizacao.getId(), atualizacao);
+		ResponseEntity<String> resposta = new ResponseEntity<>("Cliente atualizado", HttpStatus.OK);
+		return resposta;
 	}
 
-	@DeleteMapping("/excluir")
-	public void excluirCliente(@RequestBody Cliente exclusao) {
-		servico.deletar(exclusao);
+	@DeleteMapping("/excluir/{id}")
+	public ResponseEntity<String> excluirCliente(@PathVariable Long id) {
+		servico.deletar(id);
+		ResponseEntity<String> resposta = new ResponseEntity<>("Cliente deletado", HttpStatus.OK);
+		return resposta;
 	}
 }
