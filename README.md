@@ -18,8 +18,8 @@ Breve descrição de como rodar o projeto
 
 ### 3. Execução do projeto
 
-**3.1** Acesse a pasta do projeto e abra o arquivo:\
-AV1`\atvi`{=tex}-autobots-microservico-spring`\automanager`{=tex}`\src`{=tex}`\main`{=tex}`\java`{=tex}`\com`{=tex}`\autobots`{=tex}`\automanager`{=tex}`\AutomanagerApplication`{=tex}.java
+**3.1** Acesse a pasta do projeto e abra o arquivo:
+AV1-WEB3\atvi-autobots-microservico-spring\automanager\src\main\java\com\autobots\automanager\AutomanagerApplication.java
 
 **3.2** Rode o projeto pelo vscode
 
@@ -44,7 +44,7 @@ AV1`\atvi`{=tex}-autobots-microservico-spring`\automanager`{=tex}`\src`{=tex}`\m
 
 -   Corpo JSON (seguir exatamente o padrão):
 
-```{=html}
+```
 <!-- -->
 ```
     {
