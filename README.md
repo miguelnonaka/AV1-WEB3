@@ -1,101 +1,256 @@
 # AV1
 
-Breve descrição de como rodar o projeto
+Microserviço Spring Boot para gerenciamento de clientes, documentos, endereços e telefones.
+
+---
 
 ## Como executar o projeto
 
 ### 1. Clone o repositório
 
-------------------------------------------------------------------------
+---
 
 ### 2. Configuração do banco
 
-**2.1** Mude o `application.properties` para seu banco:
+**2.1** Configure o `application.properties`:
 
-    Alterar a senha do banco para SUA senha do banco MySQL
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/generaldb?createDatabaseIfNotExist=true
+spring.datasource.username=root
+spring.datasource.password=SUA_SENHA
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+```
 
-------------------------------------------------------------------------
+**2.2 Importante:**
+
+- Certifique-se de que o MySQL está rodando
+- O banco `generaldb` será criado automaticamente
+
+---
 
 ### 3. Execução do projeto
 
-**3.1** Acesse a pasta do projeto e abra o arquivo:
+**3.1** Acesse:
+
 AV1-WEB3\atvi-autobots-microservico-spring\automanager\src\main\java\com\autobots\automanager\AutomanagerApplication.java
 
-**3.2** Rode o projeto pelo vscode
+**3.2** Execute pelo VSCode ou sua IDE de preferencia
 
-------------------------------------------------------------------------
+---
 
-### 4. Teste das rotas (Insomnia ou similares)
+### 4. Teste das rotas (Insomnia, Postman, etc)
 
-#### GET
+---
 
--   Acessar todos os clientes:\
-    `localhost:8080/clientes`
+## CLIENTE
 
--   Acessar cliente específico:\
-    `localhost:8080/cliente/numero do id`
+### GET
 
-------------------------------------------------------------------------
+- Listar todos:
+localhost:8080/clientes
 
-#### POST
+- Buscar por ID:
+localhost:8080/cliente/{id}
 
--   Cadastrar um cliente:\
-    `localhost:8080/cadastro`
+---
 
--   Corpo JSON (seguir exatamente o padrão):
+### POST
 
-```
-<!-- -->
-```
+localhost:8080/cadastro
+
+Body Exemplo (JSON):
+
+{
+  "nome": "Nome",
+  "nomeSocial": "Dom Quixote",
+  "dataNascimento": "2002-06-15T00:00:00.000+00:00",
+  "dataCadastro": "2026-03-25T00:00:00.000+00:00",
+  "documentos": [
     {
-      "nome": "Nome",
-      "nomeSocial": "Dom Quixote",
-      "dataNascimento": "2002-06-15T25:58:07.966+00:00",
-      "dataCadastro": "2026-03-25T23:58:07.966+00:00",
-      "documentos": [
-        {
-          "tipo": "RG",
-          "numero": "150"
-        },
-        {
-          "tipo": "RG",
-          "numero": "000000001"
-        }
-      ],
-      "endereco": {
-        "estado": "SP",
-        "cidade": "Sanja",
-        "bairro": "Não sei",
-        "rua": "Avenida AT",
-        "numero": "170",
-        "codigoPostal": "220124001",
-        "informacoesAdicionais": "Fatec castelo"
-      },
-      "telefones": [
-        {
-          "ddd": "21",
-          "numero": "981234576"
-        }
-      ]
+      "tipo": "RG",
+      "numero": "150"
     }
+  ],
+  "endereco": {
+    "estado": "SP",
+    "cidade": "Sao Jose dos Campos",
+    "bairro": "Centro",
+    "rua": "Avenida AT",
+    "numero": "170",
+    "codigoPostal": "220124001",
+    "informacoesAdicionais": "Fatec"
+  },
+  "telefones": [
+    {
+      "ddd": "12",
+      "numero": "981234576"
+    }
+  ]
+}
 
-------------------------------------------------------------------------
+---
 
-#### PUT
+### PUT
 
--   Atualizar cliente:\
-    `localhost:8080/atualizar`
+localhost:8080/atualizar
+Exemplo de body (Sempre colocar o id no topo no body quando for selecionar qual alterar):
 
--   Regras:
+**Não é necessario colocar o body inteiro**
+{
+  "id": 1
+  "nome": "Nome",
+  "nomeSocial": "Dom Quixote",
+  "dataNascimento": "2002-06-15T00:00:00.000+00:00",
+  "dataCadastro": "2026-03-25T00:00:00.000+00:00",
+  "documentos": [
+    {
+      "tipo": "RG",
+      "numero": "150"
+    }
+  ],
+  "endereco": {
+    "estado": "SP",
+    "cidade": "Sao Jose dos Campos",
+    "bairro": "Centro",
+    "rua": "Avenida AT",
+    "numero": "170",
+    "codigoPostal": "220124001",
+    "informacoesAdicionais": "Fatec"
+  },
+  "telefones": [
+    {
+      "ddd": "12",
+      "numero": "981234576"
+    }
+  ]
+}
 
-    -   Coloque no body um JSON com o mesmo padrão do método de
-        cadastro\
-    -   Não precisa enviar o body completo\
-    -   *Necessario colocar o id para achar funcionar*
+---
 
-------------------------------------------------------------------------
+### DELETE
 
-#### DELETE
+localhost:8080/excluir/{id}
 
--   Excluir cliente:\
-    `localhost:8080/excluir/numero do id`
+---
+
+## DOCUMENTO
+
+Base: /documento
+
+GET:
+localhost:8080/documento
+localhost:8080/documento/{id}
+
+POST:
+localhost:8080/documento/cadastro
+
+Body Exemplo (JSON):
+{
+      "tipo": "RG",
+      "numero": "150"
+}
+
+
+PUT:
+localhost:8080/documento/atualizar
+Exemplo de body (Sempre colocar o id no topo no body quando for selecionar qual alterar):
+
+**Não é necessario colocar o body inteiro**
+{
+    "id": 2
+    "tipo": "RG",
+    "numero": "150"
+}
+
+
+DELETE:
+localhost:8080/documento/excluir/{id}
+
+---
+
+## ENDEREÇO
+
+Base: /endereco
+
+GET:
+localhost:8080/endereco
+localhost:8080/endereco/{id}
+
+POST:
+localhost:8080/endereco/cadastro
+
+Body Exemplo (JSON):
+{
+    "estado": "SP",
+    "cidade": "Sao Jose dos Campos",
+    "bairro": "Centro",
+    "rua": "Avenida AT",
+    "numero": "170",
+    "codigoPostal": "220124001",
+    "informacoesAdicionais": "Fatec"
+}
+
+PUT:
+localhost:8080/endereco/atualizar
+Exemplo de body (Sempre colocar o id no topo no body quando for selecionar qual alterar):
+
+Body Exemplo (JSON):
+
+**Não é necessario colocar o body inteiro**
+{
+    "id": 67
+    "estado": "SP",
+    "cidade": "Sao Jose dos Campos",
+    "bairro": "Centro",
+    "rua": "Avenida AT",
+    "numero": "170",
+    "codigoPostal": "220124001",
+    "informacoesAdicionais": "Fatec"
+}
+DELETE:
+localhost:8080/endereco/excluir/{id}
+
+---
+
+## TELEFONE
+
+Base: /telefone
+
+GET:
+localhost:8080/telefone
+localhost:8080/telefone/{id}
+
+POST:
+localhost:8080/telefone/cadastro
+
+Body Exemplo (JSON):
+{
+      "ddd": "12",
+      "numero": "981234576"
+}
+
+PUT:
+localhost:8080/telefone/atualizar
+Exemplo de body (Sempre colocar o id no topo no body quando for selecionar qual alterar):
+
+Body Exemplo (JSON):
+
+**Não é necessario colocar o body inteiro**
+{
+      "id":3
+      "ddd": "12",
+      "numero": "981234576"
+}
+
+DELETE:
+localhost:8080/telefone/excluir/{id}
+
+---
+
+## Observações importantes
+
+- Não deletar entidades relacionadas diretamente (ex: Documento) 
+- Sempre remover pelo Cliente para evitar erro de chave estrangeira (FK)
+- (Não consegui resolver problema de OrphanRemoval funcionar)
+
+---
