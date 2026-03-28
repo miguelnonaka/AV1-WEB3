@@ -24,7 +24,7 @@ public class ClienteService {
     }
 
     public Cliente ListarByID(Long id){
-        Cliente cliente = repositorio.getById(id);
+        Cliente cliente = repositorio.findById(id).orElse(null);
         return cliente;
     }
 

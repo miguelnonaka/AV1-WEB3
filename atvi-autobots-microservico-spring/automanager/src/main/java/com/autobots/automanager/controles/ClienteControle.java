@@ -11,23 +11,26 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.autobots.automanager.entidades.Cliente;
 import com.autobots.automanager.servicos.ClienteService;
 
 @RestController
+
+@RequestMapping("/cliente")
 public class ClienteControle {
 
 	@Autowired
 	private ClienteService servico;
 
-	@GetMapping("/cliente/{id}")
+	@GetMapping("/{id}")
 	public Cliente obterCliente(@PathVariable long id) {
 		return servico.ListarByID(id);
 	}
 
-	@GetMapping("/clientes")
+	@GetMapping
 	public List<Cliente> obterClientes() {
 		List<Cliente> clientes = servico.listar();
 		return clientes;
