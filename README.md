@@ -118,7 +118,31 @@ localhost:8080/atualizar
 ```json
 {
   "id": 1,
-  "nome": "Nome atualizado"
+  "nome": "Nome",
+  "nomeSocial": "Dom Quixote",
+  "dataNascimento": "2002-06-15T00:00:00.000+00:00",
+  "dataCadastro": "2026-03-25T00:00:00.000+00:00",
+  "documentos": [
+    {
+      "tipo": "RG",
+      "numero": "150"
+    }
+  ],
+  "endereco": {
+    "estado": "SP",
+    "cidade": "Sao Jose dos Campos",
+    "bairro": "Centro",
+    "rua": "Avenida AT",
+    "numero": "170",
+    "codigoPostal": "220124001",
+    "informacoesAdicionais": "Fatec"
+  },
+  "telefones": [
+    {
+      "ddd": "12",
+      "numero": "981234576"
+    }
+  ]
 }
 ```
 
