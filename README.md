@@ -300,7 +300,6 @@ localhost:8080/telefone/excluir/{id}
 # Observações importantes
 
 - Não deletar entidades relacionadas diretamente (ex: Documento)
-- Sempre remover pelo Cliente para evitar erro de chave estrangeira (FK)
 - OrphanRemoval não funciona ao deletar diretamente via repository
 
 ---
